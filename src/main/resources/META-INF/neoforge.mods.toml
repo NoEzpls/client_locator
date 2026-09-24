@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="MIT"
+
+[[mods]]
+modId="client_locator"
+version="${mod_version}"
+displayName="Client Locator"
+authors="PlatinumSuite server team"
+description='''
+Server-side command for locating an online player across dimensions.
+'''
+
+[[dependencies.client_locator]]
+modId="neoforge"
+type="required"
+versionRange="[21.11,)"
+ordering="NONE"
+side="SERVER"
+
+[[dependencies.client_locator]]
+modId="minecraft"
+type="required"
+versionRange="[${minecraft_version},1.22)"
+ordering="NONE"
+side="SERVER"
