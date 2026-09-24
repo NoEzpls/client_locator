@@ -17,7 +17,6 @@ import java.util.Locale;
 @Mod(ClientLocatorMod.MOD_ID)
 public final class ClientLocatorMod {
     public static final String MOD_ID = "client_locator";
-    private static final int REQUIRED_PERMISSION_LEVEL = 2;
 
     public ClientLocatorMod() {
         NeoForge.EVENT_BUS.addListener(ClientLocatorMod::onRegisterCommands);
@@ -31,7 +30,7 @@ public final class ClientLocatorMod {
         // Brigadier merges this node with Minecraft's existing /locate node. The
         // vanilla biome/structure/poi branches therefore continue to work.
         dispatcher.register(Commands.literal("locate")
-                .requires(source -> source.hasPermission(REQUIRED_PERMISSION_LEVEL))
+                .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                 .then(Commands.argument("player", EntityArgument.player())
                         .executes(context -> locatePlayer(
                                 context.getSource(),
@@ -41,7 +40,7 @@ public final class ClientLocatorMod {
 
     private static int locatePlayer(CommandSourceStack source, ServerPlayer player) {
         BlockPos blockPos = player.blockPosition();
-        String dimension = player.level().dimension().location().toString();
+        String dimension = player.level().dimension().identifier().toString();
         String precisePosition = String.format(
                 Locale.ROOT,
                 "%.2f, %.2f, %.2f",
